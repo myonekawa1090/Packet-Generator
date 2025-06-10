@@ -66,9 +66,12 @@ func main() {
 
 		// IPレイヤーの作成
 		ip := &layers.IPv4{
+			Version:  4,
+			IHL:      5,
+			TTL:      64,
+			Protocol: layers.IPProtocolTCP,
 			SrcIP:    localIP,
 			DstIP:    net.ParseIP(*dst),
-			Protocol: layers.IPProtocolTCP,
 		}
 
 		// TCPレイヤーの作成
@@ -80,18 +83,14 @@ func main() {
 			Window:  14600,
 			Options: []layers.TCPOption{},
 		}
-
-		// TCPレイヤーにネットワークレイヤーを設定
 		tcp.SetNetworkLayerForChecksum(ip)
 
-		// バッファの作成
 		buffer := gopacket.NewSerializeBuffer()
 		opts := gopacket.SerializeOptions{
 			FixLengths:       true,
 			ComputeChecksums: true,
 		}
 
-		// IP+TCPをまとめてシリアライズ
 		if err := gopacket.SerializeLayers(buffer, opts, ip, tcp); err != nil {
 			fmt.Printf("Error serializing packet: %v\n", err)
 			continue
