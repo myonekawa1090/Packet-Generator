@@ -1,0 +1,33 @@
+# バイナリファイル
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+
+# Goビルドキャッシュや依存
+/bin/
+/pkg/
+
+# OSごとの不要ファイル
+.DS_Store
+Thumbs.db
+
+# Pythonキャッシュ
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# ログや一時ファイル
+*.log
+*.tmp
+
+# IDE/エディタの設定
+.vscode/
+.idea/
+*.swp
+
+# モジュール依存ファイル（go.sumは必要に応じて手動管理）
+go.sum 
